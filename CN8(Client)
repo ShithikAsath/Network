@@ -1,0 +1,25 @@
+import java.io.*;
+import java.net.*;
+public class SocketClient {
+private static final int SERV_TCP_PORT = 5035;
+public static void main(String[] args) {
+try {
+Socket sock = new Socket("127.0.0.1", SERV_TCP_PORT);
+BufferedReader in_stream = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+PrintWriter out_stream = new PrintWriter(sock.getOutputStream(), true);
+System.out.print("Enter the message to send: ");
+BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+String buffer = userInput.readLine();
+while (!buffer.equals("quit")) {
+out_stream.println(buffer);
+String serverMessage = in_stream.readLine();
+System.out.print("\nServer message:\t" + serverMessage);
+System.out.print("\nType your message: ");
+buffer = userInput.readLine();
+}
+sock.close();
+}
+ catch (IOException e) {
+System.out.println("Error: " + e);
+System.exit(1);
+}}}
