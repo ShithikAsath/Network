@@ -1,0 +1,27 @@
+import java.io.*;
+import java.net.*;
+public class TCPServer {
+private static final int SERV_TCP_PORT = 5035;
+public static void main(String[] args) {
+try {
+ ServerSocket serverSocket = new ServerSocket(SERV_TCP_PORT);    
+System.out.println("Server started. Listening on port " + SERV_TCP_PORT);
+while (true) {
+Socket clientSocket = serverSocket.accept();
+System.out.println("New client connected: " + clientSocket.getInetAddress().getHostAddress());
+BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+String message = in.readLine();
+while (!"quit".equals(message)) {
+System.out.println("Client message: " + message);
+System.out.print("Type your message: ");
+message = System.console().readLine();
+out.println(message);
+message = in.readLine();
+}
+clientSocket.close();
+}
+}
+ catch (IOException e) {
+e.printStackTrace();
+}}}
