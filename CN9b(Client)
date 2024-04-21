@@ -1,0 +1,19 @@
+import java.util.*;  
+import java.net.*;
+public class ClientEcho 
+{
+public static void main( String args[] ) throws Exception
+{ 
+InetAddress add = InetAddress.getByName("localhost");    
+DatagramSocket dsock = new DatagramSocket( ); 
+String message1 = "This is client calling"; 
+byte arr[] = message1.getBytes( ); 
+DatagramPacket dpack = new DatagramPacket(arr, arr.length, add, 7); 
+dsock.send(dpack);
+Date sendTime = new Date( );  
+dsock.receive(dpack);
+String message2 = new String(dpack.getData( )); 
+Date receiveTime = new Date( ); 
+System.out.println((receiveTime.getTime( ) - sendTime.getTime( )) + " milliseconds echo time for " + message2);
+}
+}
