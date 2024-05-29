@@ -1,0 +1,8 @@
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+public interface AddServerIntf extends Remote {
+ int add(int d1, int d2) throws RemoteException;
+ int sub(int d1, int d2) throws RemoteException;
+ int mul(int d1, int d2) throws RemoteException;
+ int div(int d1, int d2) throws RemoteException;
+}
