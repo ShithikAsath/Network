@@ -1,0 +1,24 @@
+import java.io.*; 
+import java.net.*; 
+public class Agent2 { 
+public static void main(String args[])throws Exception 
+{ 
+String rmess; 
+String oid[]={"system1","system2","system3","system4","system5"}; 
+String mdate[]={"1-10-2008","10-03-2024","14-02-2010","29-09-2020","09-12-2015"}; 
+String time[]={"9.a.m","10.a.m","11.a.m","10.p.m","12.p.m"}; 
+ServerSocket sersock=new ServerSocket(3000); 
+Socket sock=sersock.accept(); 
+System.out.println("Agent2: Agent2 is ready!"); 
+OutputStream ostream=sock.getOutputStream(); 
+PrintWriter pwrite=new PrintWriter(ostream,true); 
+InputStream istream=sock.getInputStream(); 
+BufferedReader receivedread=new BufferedReader(new InputStreamReader(istream)); 
+rmess=receivedread.readLine(); 
+for(int i=0;i<5;i++) { 
+if(rmess.equals(oid[i])) { 
+pwrite.println(mdate[i]); 
+pwrite.println(time[i]); 
+break; 
+} } }
+}
