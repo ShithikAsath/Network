@@ -1,0 +1,32 @@
+import java.io.*; 
+import java.net.*; 
+public class Manager { 
+public static void main(String args[])throws Exception 
+{ 
+String rmess1,smess,rmess2; 
+int ch=0; 
+Socket sock=new Socket("127.0.0.1",3000); 
+BufferedReader keyread=new BufferedReader(new InputStreamReader(System.in)); 
+OutputStream ostream=sock.getOutputStream(); 
+PrintWriter pwrite=new PrintWriter(ostream,true); 
+InputStream istream=sock.getInputStream(); 
+BufferedReader receivedread=new BufferedReader(new InputStreamReader(istream)); 
+System.out.println("Manager\n1.TCP CONNECTION\n2.SYSTEM DETAILS\nEnter your choice:"); 
+ch=Integer.parseInt(keyread.readLine()); 
+if(ch==1) { 
+System.out.println("Enter the object ID for client:"); 
+smess=keyread.readLine(); 
+pwrite.println(smess); 
+rmess1=receivedread.readLine(); 
+System.out.println("The window size of "+smess+" for TCP connection is "+rmess1); 
+} 
+else if(ch==2) { 
+System.out.println("Enter the object ID for System:"); 
+smess=keyread.readLine(); 
+pwrite.println(smess); 
+System.out.flush(); 
+rmess1=receivedread.readLine(); 
+rmess2=receivedread.readLine(); 
+System.out.println("The manufacturing date for "+smess+" is "+rmess1+"\n The time of last 
+utilization for "+smess+" is "+rmess2); 
+} } }
